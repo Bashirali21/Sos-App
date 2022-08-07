@@ -3,8 +3,9 @@ package p32929.easypasscodelock.Utils;
 import android.app.ActivityManager;
 import android.content.ComponentCallbacks2;
 import android.content.ComponentName;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 

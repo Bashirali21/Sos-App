@@ -1,15 +1,20 @@
 package p32929.easypasscodelock.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import p32929.easypasscodelock.Interfaces.ActivityChanger;
 import p32929.easypasscodelock.R;
@@ -20,6 +25,7 @@ import p32929.easypasscodelock.Utils.LockscreenHandler;
 public class LockscreenActivity extends LockscreenHandler implements ActivityChanger {
 
     private static Class classToGoAfter;
+    public static Boolean result = false;
     String tempPass = "";
     private int[] passButtonIds = {
             R.id.lbtn1,
@@ -48,6 +54,7 @@ public class LockscreenActivity extends LockscreenHandler implements ActivityCha
     private String changeStatus = "change";
     private String changeStatus1 = "change1";
     private String changeStatus2 = "change2";
+    public static Boolean statuses=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,6 @@ public class LockscreenActivity extends LockscreenHandler implements ActivityCha
         FayazSP.init(this);
         realPass = getPassword();
         initViews();
-
         status = getIntent().getExtras().getString("passStatus", "check");
         if (status.equals(setStatus))
             textViewHAHA.setText("Enter a New Password");
@@ -94,8 +100,15 @@ public class LockscreenActivity extends LockscreenHandler implements ActivityCha
 
                 //
                 if (status.equals(checkStatus)) {
+                    statuses=false;
                     if (passString.equals(realPass)) {
-                        finish();
+                     statuses=true;
+
+                                finish();
+
+
+
+
                     } else {
                         passString = "";
                         textViewDot.setText(passString);

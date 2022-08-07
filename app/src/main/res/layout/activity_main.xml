@@ -8,31 +8,8 @@
     tools:context="p32929.passcodelock.MainActivity">
 
     <Button
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="setPass"
-        android:layout_marginBottom="16dp"
-        android:text="Set" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:onClick="changePass"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Change" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="disable"
-        android:layout_marginBottom="16dp"
-        android:text="Disable" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="checkPass"
-        android:layout_marginBottom="16dp"
-        android:text="Check" />
-
+        android:text="Button" />
 </LinearLayout>

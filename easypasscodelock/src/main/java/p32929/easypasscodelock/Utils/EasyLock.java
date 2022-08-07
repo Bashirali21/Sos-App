@@ -1,8 +1,11 @@
 package p32929.easypasscodelock.Utils;
 
+import static p32929.easypasscodelock.Activities.LockscreenActivity.statuses;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 
 import p32929.easypasscodelock.Activities.LockscreenActivity;
@@ -30,6 +33,7 @@ public class EasyLock {
         Intent intent = new Intent(context, LockscreenActivity.class);
         intent.putExtra("passStatus", "set");
         context.startActivity(intent);
+
     }
 
     public static void changePassword(Context context, Class activityClassToGo) {
@@ -48,13 +52,14 @@ public class EasyLock {
         context.startActivity(intent);
     }
 
-    public static void checkPassword(Context context) {
+    public static boolean checkPassword(Context context) {
         init(context);
         if (FayazSP.getString("password", null) != null) {
             Intent intent = new Intent(context, LockscreenActivity.class);
             intent.putExtra("passStatus", "check");
             context.startActivity(intent);
         }
+        return statuses;
     }
 
     public static void setBackgroundColor(int backgroundColor) {
