@@ -34,6 +34,12 @@ public class FamilyContact {
 
     @PrimaryKey(autoGenerate = true)
     int id;
+
+//    public FamilyContact(String number, String name) {
+//        this.number = number;
+//        Name = name;
+//    }
+
     @UiContext
     String number;
     String Name;

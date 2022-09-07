@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -26,10 +27,22 @@
 
         </receiver>
         <activity
-            android:name=".AllFamilyContactsActivity"
+            android:name=".ActivityUpdateContact"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUpdateFamilyContact"
             android:exported="false" />
         <activity
             android:name=".ActivityAddFamily"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityAddFromContacts"
+            android:exported="false" />
+        <activity
+            android:name=".AllFamilyContactsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityAddFamilyFromContacts"
             android:exported="false" />
         <activity
             android:name=".OptionActivity"

@@ -13,29 +13,35 @@ import p32929.passcodelock.db.Contact;
 import p32929.passcodelock.db.FamilyContact;
 import p32929.passcodelock.viewModel.ViewModal;
 
-public class ActivityAddFamily extends AppCompatActivity {
-    ViewModal viewModal;//to access view model functions
-    ActivityAddContactBinding binding;// for access of components in our activity
+public class ActivityUpdateContact extends AppCompatActivity {
+    ViewModal viewModal;
+    ActivityAddContactBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddContactBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Bundle b=getIntent().getExtras();
+        Contact model=new Contact();
+        model.setNumber(b.getString("number"));
+        model.setName(b.getString("name"));
+        model.setId(b.getInt("id"));
+        binding.btnCreate.setText("Update");
         viewModal = new ViewModelProvider(this).get(ViewModal.class);
         binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isEmpty(binding.EtName) || isEmpty(binding.EtNumber)) {//to check whether any field is empty
-                    Toast.makeText(ActivityAddFamily.this, "Please fill Data", Toast.LENGTH_SHORT).show();
+                if (isEmpty(binding.EtName) || isEmpty(binding.EtNumber)) {
+                    Toast.makeText(ActivityUpdateContact.this, "Please fill Data", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    //getting all the form data and saving it in our database
-                    FamilyContact table=new FamilyContact();
+                    Contact table=new Contact();
+                    table.setId(model.getId());
                     table.setName(binding.EtName.getText().toString());
                     table.setNumber(binding.EtNumber.getText().toString());
-                    viewModal.insertFamily(table);
-                    Toast.makeText(ActivityAddFamily.this, "Added succefully", Toast.LENGTH_SHORT).show();
+                    viewModal.updateContact(table);
+                    Toast.makeText(ActivityUpdateContact.this, "Updated succefully", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -48,3 +54,4 @@ public class ActivityAddFamily extends AppCompatActivity {
     }
 
 }
+

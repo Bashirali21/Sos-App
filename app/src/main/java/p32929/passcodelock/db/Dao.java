@@ -25,17 +25,25 @@ public interface Dao {
     @Update
     void update(Contact model);
 
+    @Update
+     void updateFamily(FamilyContact model);
+
     // below line is use to delete a 
     // specific course in our database.
     @Delete
     void delete(Contact model);
+    @Delete
+    void deleteFamily(FamilyContact model);
+
+    @Delete
+    void FamilyContact(FamilyContact model);
 
     // on below line we are making query to
     // delete all courses from our database.
 
 
     // below line is to read all the courses from our database.
-    // in this we are ordering our courses in ascending order 
+    // in this we are ordering our courses in ascending order
     // with our course name.
     @Query("SELECT * FROM contacts_table ORDER BY Name ASC")
     LiveData<List<Contact>> getAllCourses();

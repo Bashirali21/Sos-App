@@ -34,6 +34,12 @@ public class Contact {
 
     @PrimaryKey(autoGenerate = true)
     int id;
+
+//    public Contact(String number, String name) {
+//        this.number = number;
+//        Name = name;
+//    }
+
     @UiContext
     String number;
     String Name;

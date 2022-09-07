@@ -4,7 +4,6 @@ import static p32929.passcodelock.service.SoundService.ring;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,23 +11,18 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.Contacts;
 import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.location.LocationManagerCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -81,13 +75,13 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
             finish();
         }
         viewModal = new ViewModelProvider(this).get(ViewModal.class);
-        binding.btnAddContact.setOnClickListener(new View.OnClickListener() {
+        binding.cardAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(TestActivity.this, OptionActivity.class));
             }
         });
-        binding.btnSos.setOnClickListener(new View.OnClickListener() {
+        binding.cardSos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getLastLocation();
@@ -100,7 +94,7 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
                 }, 2000);
             }
         });
-        binding.btnWhistle.setOnClickListener(new View.OnClickListener() {
+        binding.cardEmergencyAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startService(new Intent(TestActivity.this, SoundService.class));
@@ -110,20 +104,30 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
                     @Override
                     public void run() {
                         if(ring.isPlaying()){
-                            binding.btnWhistle.setText("pause");
+                            binding.textView3.setText("pause");
+                            binding.imgPlayPause.setImageResource(R.drawable.ic_baseline_pause_24);
                         }
                         else{
-                            binding.btnWhistle.setText("play");
+                            binding.textView3.setText("play");
+                            binding.imgPlayPause.setImageResource(R.drawable.ic_baseline_play_circle_24);
                         }
                     }
                 }, 1000);
 
             }
         });
-        binding.btnReachHome.setOnClickListener(new View.OnClickListener() {
+        binding.cardHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendFamilyMessage();
+            }
+        });
+        binding.cardCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:012-924 8322"));
+                startActivity(intent);
             }
         });
     }
@@ -132,7 +136,7 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
 
     protected void sendSMSMessage() {
-        viewModal.getAllCourses().observe(this, new Observer<List<Contact>>() {
+        viewModal.getAllContact().observe(this, new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 if (contacts.size() == 0) {
@@ -141,14 +145,14 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
                     SmsManager smsManager = SmsManager.getDefault();
                     for (Contact data : contacts) {
                         try {
-                            smsManager.sendTextMessage(data.getNumber(), null, longitTextView + latitudeTextView, null, null);
+                            smsManager.sendTextMessage(data.getNumber(), null, longitTextView+latitudeTextView+" I am in Emergency must use this numbers to get the Location ", null, null);
                         } catch (Exception ex) {
 
                         }
 
                     }
                     Toast.makeText(TestActivity.this, "send succesfully", Toast.LENGTH_SHORT).show();
-                }
+                                    }
             }
         });
     }
@@ -197,7 +201,8 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
                     SmsManager smsManager = SmsManager.getDefault();
                     for (FamilyContact data : familyContacts) {
                         try {
-                            smsManager.sendTextMessage(data.getNumber(), null, "i am home", null, null);
+                            smsManager.sendTextMessage(data.getNumber(), null, " I'm in emergency"+longitTextView+latitudeTextView+"", null, null);
+
                         } catch (Exception ex) {
 
                         }
@@ -324,10 +329,10 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
     @Override
     public void change(Boolean status) {
         if(status){
-            binding.btnWhistle.setText("Playing");
+            binding.textView3.setText("Playing");
         }
         else{
-            binding.btnWhistle.setText("Stop");
+            binding.textView3.setText("Stop");
         }
     }
     public class MyReceiver extends BroadcastReceiver {
@@ -337,10 +342,10 @@ public class TestActivity extends LockscreenHandler implements ChangeText {
             Toast.makeText(TestActivity.this, "started", Toast.LENGTH_SHORT).show();
          String message=extras.getString("status","2");
          if(message=="1"){
-             binding.btnWhistle.setText("play");
+             binding.textView3.setText("play");
          }
          if(message=="0"){
-             binding.btnWhistle.setText("stop");
+             binding.textView3.setText("stop");
          }
 
         }

@@ -10,22 +10,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import p32929.passcodelock.databinding.ActivityOptionBinding;
 
 public class OptionActivity extends AppCompatActivity {
-ActivityOptionBinding binding;
+    ActivityOptionBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityOptionBinding.inflate(getLayoutInflater());
+        binding = ActivityOptionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.btnFamily.setOnClickListener(new View.OnClickListener() {
+        binding.cardAddFamily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(OptionActivity.this,AllFamilyContactsActivity.class));
+                startActivity(new Intent(OptionActivity.this, AllFamilyContactsActivity.class));
             }
         });
-        binding.button3.setOnClickListener(new View.OnClickListener() {
+        binding.cardEmergencyContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-startActivity(new Intent(OptionActivity.this,AllContactsActivity.class));
+                startActivity(new Intent(OptionActivity.this, AllContactsActivity.class));
             }
         });
     }

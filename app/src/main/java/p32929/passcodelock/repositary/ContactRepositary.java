@@ -1,21 +1,20 @@
 package p32929.passcodelock.repositary;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import p32929.passcodelock.db.Contact;
 import p32929.passcodelock.db.AppDataBase;
+import p32929.passcodelock.db.Contact;
 import p32929.passcodelock.db.Dao;
 import p32929.passcodelock.db.FamilyContact;
 
 
 public class ContactRepositary {
 
-    // below line is the create a variable 
+    // below line is the create a variable
     // for dao and list for all courses.
     private Dao dao;
     private LiveData<List<Contact>> allCourses;
@@ -38,20 +37,29 @@ public class ContactRepositary {
     public void insertFamily(FamilyContact model) {
         dao.insertFamily(model);
     }
+
+
+    // creating a method to get all the data to from our database.
     public LiveData<List<Contact>> getAllCourses() {
         return allCourses;
     }
-
     public LiveData<List<FamilyContact>> getFamilyContact() {
         return familyContact;
     }
 
-    // we are creating a async task method to insert new course.
+    // creating a method to update  the data  from our database.
+    public void updateContact(Contact model){
+        dao.update(model);
+    }
+
+    public void updateFamily(FamilyContact model){
+        dao.updateFamily(model);
+    }
+
+    // we are creating a async task method to delete Contacts.
+    public void delete(Contact model){dao.delete(model);}
+    public void DeleteFamilyContact(FamilyContact model){dao.deleteFamily(model);}
 
 
-    // we are creating a async task method to delete course.
-
-
-    // we are creating a async task method to delete all courses.
 
 }

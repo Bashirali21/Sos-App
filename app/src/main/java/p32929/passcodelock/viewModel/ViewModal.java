@@ -18,16 +18,22 @@ public class ViewModal extends AndroidViewModel {
     private ContactRepositary repository;
 
     // below line is to create a variable for live 
-    // data where all the courses are present.
-    private LiveData<List<Contact>> allCourses;
+    // data where all the Contact are present.
+    private LiveData<List<Contact>> allContact;
     private LiveData<List<FamilyContact>> familyContacts;
 
     // constructor for our view modal.
     public ViewModal(@NonNull Application application) {
         super(application);
         repository = new ContactRepositary(application);
-        allCourses = repository.getAllCourses();
+        allContact = repository.getAllCourses();
         familyContacts = repository.getFamilyContact();
+    }
+    public  void updateContact(Contact model){
+        repository.updateContact(model);
+    }
+    public  void updateFamilyContact(FamilyContact model){
+        repository.updateFamily(model);
     }
     public void insert(Contact model) {
         repository.insert(model);
@@ -35,8 +41,16 @@ public class ViewModal extends AndroidViewModel {
     public void insertFamily(FamilyContact model) {
         repository.insertFamily(model);
     }
-    public LiveData<List<Contact>> getAllCourses() {
-        return allCourses;
+    public void deleteFamily(FamilyContact model) {
+        repository.DeleteFamilyContact(model);
+    }
+
+        public void deleteContact(Contact model){
+            repository.delete(model);
+
+    }
+    public LiveData<List<Contact>> getAllContact() {
+        return allContact;
     }
     public LiveData<List<FamilyContact>> getFamilyContacts() {
         return familyContacts;

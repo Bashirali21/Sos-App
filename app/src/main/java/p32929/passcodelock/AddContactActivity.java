@@ -23,7 +23,6 @@ public class AddContactActivity extends AppCompatActivity {
         binding = ActivityAddContactBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModal = new ViewModelProvider(this).get(ViewModal.class);
-        AppDataBase database = AppDataBase.getInstance(getApplicationContext());
         binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,9 +31,10 @@ public class AddContactActivity extends AppCompatActivity {
                 }
                 else{
                     Contact table=new Contact();
-                    table.setName(binding.EtNumber.getText().toString());
+                    table.setName(binding.EtName.getText().toString());
                     table.setNumber(binding.EtNumber.getText().toString());
                     viewModal.insert(table);
+                    Toast.makeText(AddContactActivity.this, "Added succefully", Toast.LENGTH_SHORT).show();
 
                 }
             }
